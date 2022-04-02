@@ -1,17 +1,18 @@
 import cv2
 
-handDetect = cv2.CascadeClassifier('Hand.Cascade.1.xml')
+handDetect = cv2.CascadeClassifier('haarcascade_hand.xml')
 
-stream = cv2.VideoCapture(0)
+stream = cv2.VideoCapture(1)
 
 while True:
 	success, img = stream.read()
 	
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-	hand = handDetect.detectMultiScale(gray, 1.3, 5)
+	hand = handDetect.detectMultiScale(gray, 1.3, 8)
 
-	for (x, y, w, h) in hand:
-		img = cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+	for (hx, hy, hw, hh) in hand:
+		img = cv2.rectangle(img, (hx, hy), (hx + hw, hy + hh), (255, 0, 0), 1)
+		cv2.putText(img, 'hand', (hx, hy-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2)
 
 	cv2.imshow('Live', img)
 
