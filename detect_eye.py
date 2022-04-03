@@ -1,14 +1,14 @@
 import cv2
 
-eyeCascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+eyeCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
 
-stream = cv2.VideoCapture(1)
+stream = cv2.VideoCapture(0)
 
 while True:
 	success, img = stream.read()
 	
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-	eye = eyeCascade.detectMultiScale(gray, 1.3, 5)
+	eye = eyeCascade.detectMultiScale(gray, 1.3, 6)
 
 	for (ex, ey, ew, eh) in eye:
 		cv2.rectangle(img, (ex, ey), (ex + ew, ey + eh), (0, 0, 255), 1)
@@ -19,3 +19,5 @@ while True:
 	if cv2.waitKey(10) & 0xFF == ord('\x1b'):
 		break
 
+stream.release()
+cv2.destroyAllWindows()

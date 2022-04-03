@@ -1,8 +1,8 @@
 import cv2
 
-smileCascade = cv2.CascadeClassifier("haarcascade_smile.xml")
+smileCascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_smile.xml")
 
-stream = cv2.VideoCapture(1)
+stream = cv2.VideoCapture(0)                
 
 while True:
 	success, img = stream.read()
