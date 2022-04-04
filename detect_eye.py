@@ -2,11 +2,13 @@ import cv2
 
 eyeCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
 
-stream = cv2.VideoCapture(0)
+stream = cv2.VideoCapture('vid1.mp4')
+#stream = cv2.VideoCapture(0)                              #Uncomment to use webcam as videocapture device
 
 while True:
 	success, img = stream.read()
-	
+	img = cv2.resize(img, (1080, 720))                    #Comment when using webcam as videocapture device for best results
+
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	eye = eyeCascade.detectMultiScale(gray, 1.3, 6)
 
